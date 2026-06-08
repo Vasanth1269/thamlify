@@ -101,7 +101,7 @@ const API_URL = import.meta.env.VITE_API_URL;
  
   fetchThumbnails();
 }, []);
-
+       console.log(API_URL)
   return (
     <>
       <ScrollToTop />
