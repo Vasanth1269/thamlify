@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 function Login() {
   const { backendUrl,checkAuth } = useAppContext();
   const [loading, setLoading,] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
 
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Login() {
       console.log(mode)
       if (mode === "signup") {
         const {data}  = await axios.post(
-          backendUrl + "/api/auth/register",
+         `${API_URL}/api/auth/register`,
           {
             name:formData.name,
             email:formData.email,
@@ -65,7 +66,7 @@ function Login() {
         console.log("success")
       } else {
         const { data } = await axios.post(
-          backendUrl + "/api/auth/login",
+          `${API_URL}/api/auth/login`,
           {
             email: formData.email,
             password: formData.password,
