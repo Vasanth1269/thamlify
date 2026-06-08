@@ -70,7 +70,9 @@ function Login() {
           {
             email: formData.email,
             password: formData.password,
-          }
+          },{
+    withCredentials: true
+  }
         );
      setLoading(false)
         if (data.success) {
