@@ -49,7 +49,12 @@ function Login() {
            
         );
         setLoading(false)
-        const otpResponse = await axios.post(backendUrl + "/api/auth/send-verify-otp")
+        const otpResponse = await axios.post(backendUrl + "/api/auth/send-verify-otp",
+          {},
+          {
+    withCredentials: true
+  }
+        )
          if(otpResponse.data.success){
           console.log("OTP send your Email.please Checkout")
          }else{

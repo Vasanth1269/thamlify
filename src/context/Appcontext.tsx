@@ -22,7 +22,7 @@ interface AppContextProviderProps {
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
-
+    axios.defaults.withCredentials = true;
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userData, setUserData] = useState<any>(null);
 
