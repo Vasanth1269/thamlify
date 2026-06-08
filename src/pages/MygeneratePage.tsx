@@ -18,6 +18,7 @@ function MygeneratePage() {
   const [isLoading, setIsLoading] = useState(true);
   const[error , setError] = useState('')
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     // temporary fake loading
@@ -29,7 +30,7 @@ function MygeneratePage() {
   useEffect(() => {
   const fetchThumbnails = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/thumbnails", {
+      const res = await fetch(`${API_URL}/api/thumbnails`, {
         credentials: "include",
       });
 

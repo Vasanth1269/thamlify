@@ -30,7 +30,7 @@ export default function Generate() {
  const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
  
  
-
+const API_URL = import.meta.env.VITE_API_URL;
  const handleGenerate = async () => {
  
 
@@ -52,7 +52,7 @@ export default function Generate() {
   console.log( "sending data",payload);
 
   try {
-    const res = await fetch("http://localhost:5000/api/generate", {
+    const res = await fetch(`${API_URL}/api/generate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function Generate() {
  useEffect(() => {
   const fetchThumbnails = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/thumbnails", {
+      const res = await fetch(`${API_URL}/api/thumbnails`, {
         credentials: "include",
       });
 

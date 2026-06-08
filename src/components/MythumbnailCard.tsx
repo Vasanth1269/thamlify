@@ -16,7 +16,7 @@ interface MythumbnailCardProps {
 }
 function MythumbnailCard({ thumb,setThumbnails  }: MythumbnailCardProps) {
   const navigate = useNavigate();
-  
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const ratioClassMap: Record<string, string> = {
     "16:9": "aspect-video",
@@ -29,7 +29,7 @@ function MythumbnailCard({ thumb,setThumbnails  }: MythumbnailCardProps) {
 
 const handleDelete = async (id: string) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/thumbnails/${id}`, {
+    const res = await fetch(`${API_URL}/api/thumbnails/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
