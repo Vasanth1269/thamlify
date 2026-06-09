@@ -54,6 +54,7 @@ function Login() {
           console.log("OTP send your Email.please Checkout")
          }else{
           console.log("Problem in send OTP , please contect support")
+          console.log(formData)
          }
 
         if (data.success) {
