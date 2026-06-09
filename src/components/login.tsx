@@ -60,6 +60,7 @@ function Login() {
          }
 
         if (data.success) {
+          localStorage.setItem("signupData", JSON.stringify(formData));
           navigate("/auth/otp");
           setLoading(false)
         } else {

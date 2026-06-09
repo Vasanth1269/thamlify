@@ -8,10 +8,6 @@ const OTP_LENGTH = 6;
 
 const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
 
-const signupData = JSON.parse(
-  localStorage.getItem("signupData") || "{}"
-);
-
 const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const { backendUrl } = useAppContext();
    const navigate = useNavigate()
@@ -19,29 +15,33 @@ const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  try {
-    axios.defaults.withCredentials =true
-     const otpString = otp.join("");
-    const { data } = await axios.post(
-      `${backendUrl}/api/auth/verifyEmail`,
-      { otp:otpString ,
-        email:signupData.emaill
+ try {
+  axios.defaults.withCredentials = true;
 
-      }, // <-- actual OTP value
-      { withCredentials: true }
-    );
+  const signupData = JSON.parse(localStorage.getItem("signupData") || "{}");
+  const otpString = otp.join("");
 
-    if (data.success) {
-      navigate("/");
-      localStorage.removeItem("signupData");
-    } else {
-      alert(data.message);
+  const { data } = await axios.post(
+    `${backendUrl}/api/auth/verify-email`,
+    {
+      otp: otpString,
+      email: signupData.email,
+    },
+    {
+      withCredentials: true,
     }
+  );
 
-  } catch (error) {
-    console.error(error.response?.data || error.message);
-    alert("Something went wrong");
+  if (data.success) {
+    localStorage.removeItem("signupData");
+    navigate("/");
+  } else {
+    alert(data.message);
   }
+} catch (error) {
+  console.log("OTP Error:", error);
+  alert("OTP verification failed");
+}
 
 };
  const restOtp = async (e) =>{

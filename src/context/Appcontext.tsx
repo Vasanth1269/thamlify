@@ -21,7 +21,7 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
+  const backendUrl = import.meta.env.VITE_API_URL as string;
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userData, setUserData] = useState<any>(null);
 
