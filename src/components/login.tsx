@@ -51,10 +51,12 @@ function Login() {
       
          if(data.success){
           localStorage.setItem("signupData", JSON.stringify(formData));
+          navigate("/auth/otp");
           console.log("OTP send your Email.please Checkout")
          }else{
           console.log("Problem in send OTP , please contect support")
           console.log(formData)
+          toast.error(data.message);
          }
 
         if (data.success) {
