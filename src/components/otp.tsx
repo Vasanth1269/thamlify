@@ -8,7 +8,9 @@ const OTP_LENGTH = 6;
 
 const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
 
-
+const signupData = JSON.parse(
+  localStorage.getItem("signupData") || "{}"
+);
 
 const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const { backendUrl } = useAppContext();
@@ -22,12 +24,16 @@ const handleSubmit = async (e) => {
      const otpString = otp.join("");
     const { data } = await axios.post(
       `${backendUrl}/api/auth/verifyEmail`,
-      { otp:otpString }, // <-- actual OTP value
+      { otp:otpString ,
+        email:signupData.emaill
+
+      }, // <-- actual OTP value
       { withCredentials: true }
     );
 
     if (data.success) {
       navigate("/");
+      localStorage.removeItem("signupData");
     } else {
       alert(data.message);
     }

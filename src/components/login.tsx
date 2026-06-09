@@ -13,7 +13,6 @@ function Login() {
   const [loading, setLoading,] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL;
 
-
   const navigate = useNavigate();
 
   const [mode, setMode] = useState("signup"); // "login" | "signup"
@@ -23,7 +22,7 @@ function Login() {
     email: "",
     password: "",
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -39,7 +38,7 @@ function Login() {
       console.log(mode)
       if (mode === "signup") {
         const {data}  = await axios.post(
-         `${API_URL}/api/auth/register`,
+         `${API_URL}/api/auth/send-verify-otp`,
           {
             name:formData.name,
             email:formData.email,
@@ -49,13 +48,9 @@ function Login() {
            
         );
         setLoading(false)
-        const otpResponse = await axios.post(backendUrl + "/api/auth/send-verify-otp",
-          {},
-          {
-    withCredentials: true
-  }
-        )
-         if(otpResponse.data.success){
+      
+         if(data.success){
+          localStorage.setItem("signupData", JSON.stringify(formData));
           console.log("OTP send your Email.please Checkout")
          }else{
           console.log("Problem in send OTP , please contect support")
