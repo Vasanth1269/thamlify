@@ -3,13 +3,14 @@ import SoftBackdrop from "./softBackdrop";
 import { useState, useRef } from "react";
 import { useAppContext } from "../context/useAppContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function Otp() {
 const OTP_LENGTH = 6;
 
 const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
 
 const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
-  const { backendUrl } = useAppContext();
+  const { backendUrl, checkAuth } = useAppContext();
    const navigate = useNavigate()
 
 const handleSubmit = async (e) => {
@@ -38,6 +39,8 @@ const handleSubmit = async (e) => {
   if (data.success === true) {
     localStorage.removeItem("signupData");
     navigate("/",{ replace: true });
+    toast.success("Sign up successful");
+    checkAuth()
   } else {
     console.log(data.message);
   }
