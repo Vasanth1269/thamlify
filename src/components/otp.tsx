@@ -31,10 +31,13 @@ const handleSubmit = async (e) => {
       withCredentials: true,
     }
   );
+     console.log("API_URL:", API_URL);
+    console.log("signupData:", signupData);
+    console.log("otpString:", otpString);
 
   if (data.success === true) {
     localStorage.removeItem("signupData");
-    navigate("/");
+    navigate("/",{ replace: true });
   } else {
     console.log(data.message);
   }
