@@ -17,12 +17,12 @@ const handleSubmit = async (e) => {
 
  try {
   axios.defaults.withCredentials = true;
-
+ const API_URL = import.meta.env.VITE_API_URL;
   const signupData = JSON.parse(localStorage.getItem("signupData") || "{}");
   const otpString = otp.join("");
 
   const { data } = await axios.post(
-    `${backendUrl}/api/auth/verify-email`,
+    `${API_URL}/api/auth/verify-email`,
     {
       otp: otpString,
       email: signupData.email,
@@ -32,15 +32,15 @@ const handleSubmit = async (e) => {
     }
   );
 
-  if (data.success) {
+  if (data.success === true) {
     localStorage.removeItem("signupData");
     navigate("/");
   } else {
-    alert(data.message);
+    console.log(data.message);
   }
 } catch (error) {
-  console.log("OTP Error:", error);
-  alert("OTP verification failed");
+     
+    alert("OTP verification failed");
 }
 
 };
@@ -149,7 +149,7 @@ console.log(otp)
             rounded-full
             bg-pink-600
             text-white
-            hover:bg-pink-500
+            hover:bg-pink-400
             transition
           "
           onClick={handleSubmit}
